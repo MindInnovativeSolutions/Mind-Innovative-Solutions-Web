@@ -23,6 +23,7 @@
       </button>
       <nav class="main-nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
         <a href="#why-us">Why us</a>
         <a href="#process">Process</a>
         <a href="#about">About</a>
@@ -132,6 +133,29 @@
       </div>
     </section>
 
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Our work</p>
+          <h2>Gallery</h2>
+          <p>Explore completed security, networking, access control, and audio-video projects.</p>
+        </div>
+        <div class="gallery-filters" id="gallery-filters" aria-label="Filter projects" hidden></div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <div class="gallery-empty" id="gallery-empty">
+          <h3>Project photos are coming soon.</h3>
+          <p>Have a project in mind? Tell us what you need and we’ll help plan the installation.</p>
+          <a class="btn btn-primary" href="#contact">Request a free estimate</a>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="gallery-dialog" id="gallery-dialog" aria-label="Project photo">
+      <button class="gallery-close" type="button" aria-label="Close photo">×</button>
+      <img id="gallery-dialog-image" alt="" />
+      <div class="gallery-dialog-caption"><strong id="gallery-dialog-title"></strong><span id="gallery-dialog-description"></span></div>
+    </dialog>
+
     <section class="section section-dark" id="why-us">
       <div class="container split-grid">
         <div>
@@ -233,6 +257,7 @@
     </div>
   </footer>
 
+  <script src="gallery/projects.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
