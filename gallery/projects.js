@@ -61,5 +61,22 @@ window.galleryProjects = [
       { src: 'gallery/IMG_5209.jpeg', alt: 'TV mounting bracket and wall connections before installation' },
       { src: 'gallery/IMG_5214.jpeg', alt: 'Completed wall-mounted TV installation' }
     ]
+  },
+    {
+    title: 'Church audio system installation',
+    category: 'TV & Audio-Video',
+    description: 'Wall-mounted speakers and audio system configuration for a church sanctuary.',
+    photos: [
+      { src: 'gallery/IMG_0269.jpg', alt: 'Church sanctuary with installed audio speakers' },
+      { src: 'gallery/IMG_0270.jpg', alt: 'Wall-mounted column speaker in the sanctuary' },
+      { src: 'gallery/IMG_0271.jpg', alt: 'Installed wall speakers near a stained-glass window' },
+      { src: 'gallery/IMG_0272.jpg', alt: 'Close-up of sanctuary wall speakers and cable routing' },
+      { src: 'gallery/IMG_0273.jpg', alt: 'Column speaker mounted beside the pews' },
+      { src: 'gallery/IMG_0274.jpg', alt: 'Side view of a wall-mounted column speaker' },
+      { src: 'gallery/Screenshot 2025-11-05 213241.png', alt: 'Audio system signal routing diagram' },
+      { src: 'gallery/Screenshot 2025-11-05 213311.png', alt: 'Audio processor configuration diagram' },
+      { src: 'gallery/Screenshot 2025-11-05 213329.png', alt: 'Audio system inputs and outputs diagram' },
+      { src: 'gallery/Screenshot 2025-11-05 213421.png', alt: 'Audio processing and output routing diagram' }
+    ]
   }
 ];
