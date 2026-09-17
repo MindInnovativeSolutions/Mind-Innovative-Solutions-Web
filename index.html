@@ -152,8 +152,14 @@
 
     <dialog class="gallery-dialog" id="gallery-dialog" aria-label="Project photo">
       <button class="gallery-close" type="button" aria-label="Close photo">×</button>
-      <img id="gallery-dialog-image" alt="" />
+      <div class="gallery-viewer">
+        <button class="gallery-arrow" id="gallery-prev" type="button" aria-label="Previous photo">‹</button>
+        <img id="gallery-dialog-image" alt="" />
+        <button class="gallery-arrow" id="gallery-next" type="button" aria-label="Next photo">›</button>
+      </div>
       <div class="gallery-dialog-caption"><strong id="gallery-dialog-title"></strong><span id="gallery-dialog-description"></span></div>
+      <p class="gallery-count" id="gallery-count" aria-live="polite"></p>
+      <div class="gallery-thumbnails" id="gallery-thumbnails" aria-label="Project photos"></div>
     </dialog>
 
     <section class="section section-dark" id="why-us">
