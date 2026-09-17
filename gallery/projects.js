@@ -47,7 +47,8 @@ window.galleryProjects = [
     category: 'TV & Audio-Video',
     description: 'Wall prepared for a TV installation above a fireplace.',
     photos: [
-      { src: 'gallery/IMG_0850.JPEG', alt: 'Wall prepared for a TV installation above a fireplace' }
+      { src: 'gallery/IMG_0850.JPEG', alt: 'Wall prepared for a TV installation above a fireplace' },
+      { src: 'gallery/IMG_5214.jpeg', alt: 'Completed wall-mounted TV installation' }
     ]
   },
   {
