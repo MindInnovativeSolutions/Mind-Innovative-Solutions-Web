@@ -15,7 +15,10 @@ document.querySelectorAll('.main-nav a').forEach(link => {
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 
-const projects = Array.isArray(window.galleryProjects) ? window.galleryProjects : [];
+const projects = (Array.isArray(window.galleryProjects) ? window.galleryProjects : [])
+  .filter(project => project && Array.isArray(project.photos) && project.photos.length)
+  .map(project => ({ ...project, photos: project.photos.filter(photo => photo && typeof photo.src === 'string' && photo.src) }))
+  .filter(project => project.photos.length);
 const galleryGrid = document.querySelector('#gallery-grid');
 const galleryEmpty = document.querySelector('#gallery-empty');
 const galleryFilters = document.querySelector('#gallery-filters');
@@ -24,38 +27,14 @@ const dialogImage = document.querySelector('#gallery-dialog-image');
 const dialogTitle = document.querySelector('#gallery-dialog-title');
 const dialogDescription = document.querySelector('#gallery-dialog-description');
 
-const viewer = document.createElement('div');
-viewer.className = 'gallery-viewer';
+const previousPhoto = document.querySelector('#gallery-prev');
+const nextPhoto = document.querySelector('#gallery-next');
+const galleryCount = document.querySelector('#gallery-count');
+const galleryThumbnails = document.querySelector('#gallery-thumbnails');
 
-const previousPhoto = document.createElement('button');
-previousPhoto.type = 'button';
-previousPhoto.id = 'gallery-prev';
-previousPhoto.className = 'gallery-arrow';
-previousPhoto.setAttribute('aria-label', 'Previous photo');
-previousPhoto.textContent = '‹';
-
-const nextPhoto = document.createElement('button');
-nextPhoto.type = 'button';
-nextPhoto.id = 'gallery-next';
-nextPhoto.className = 'gallery-arrow';
-nextPhoto.setAttribute('aria-label', 'Next photo');
-nextPhoto.textContent = '›';
-
-dialogImage.replaceWith(viewer);
-viewer.append(previousPhoto, dialogImage, nextPhoto);
-
-const galleryCount = document.createElement('p');
-galleryCount.id = 'gallery-count';
-galleryCount.className = 'gallery-count';
-galleryCount.setAttribute('aria-live', 'polite');
-
-const galleryThumbnails = document.createElement('div');
-galleryThumbnails.id = 'gallery-thumbnails';
-galleryThumbnails.className = 'gallery-thumbnails';
-galleryThumbnails.setAttribute('aria-label', 'Project photos');
-dialogDescription.parentElement.after(galleryCount, galleryThumbnails);
-
-const categories = ['All', ...new Set(projects.map(project => project.category).filter(Boolean))];
+const categories = [{ label: 'All', value: null },
+  ...[...new Set(projects.map(project => project.category).filter(Boolean))]
+    .map(category => ({ label: category, value: category }))];
 let activeProject = null;
 let activePhotoIndex = 0;
 
@@ -92,6 +71,7 @@ function openProject(project) {
   ].filter(Boolean).join(' · ');
 
   const multiple = project.photos.length > 1;
+  galleryDialog.querySelector('.gallery-viewer').classList.toggle('single-photo', !multiple);
   previousPhoto.hidden = !multiple;
   nextPhoto.hidden = !multiple;
   galleryThumbnails.hidden = !multiple;
@@ -111,14 +91,14 @@ function openProject(project) {
     galleryThumbnails.append(button);
   });
 
-  galleryDialog.showModal();
   showPhoto(0);
+  galleryDialog.showModal();
 }
 
-function renderGallery(category = 'All') {
+function renderGallery(category = null) {
   galleryGrid.replaceChildren();
   const visible = projects.filter(project =>
-    category === 'All' || project.category === category
+    category === null || project.category === category
   );
   galleryEmpty.hidden = projects.length > 0;
 
@@ -165,19 +145,19 @@ function renderGallery(category = 'All') {
 }
 
 if (projects.length) {
-  galleryFilters.hidden = categories.length < 3;
+  galleryFilters.hidden = categories.length < 2;
 
   categories.forEach(category => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = category;
-    button.setAttribute('aria-pressed', String(category === 'All'));
+    button.textContent = category.label;
+    button.setAttribute('aria-pressed', String(category.value === null));
 
     button.addEventListener('click', () => {
       galleryFilters.querySelectorAll('button').forEach(item => {
         item.setAttribute('aria-pressed', String(item === button));
       });
-      renderGallery(category);
+      renderGallery(category.value);
     });
 
     galleryFilters.append(button);
@@ -190,7 +170,10 @@ galleryDialog.querySelector('.gallery-close')
   .addEventListener('click', () => galleryDialog.close());
 
 galleryDialog.addEventListener('click', event => {
-  if (event.target === galleryDialog) galleryDialog.close();
+  if (event.target !== galleryDialog) return;
+  const bounds = galleryDialog.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right ||
+      event.clientY < bounds.top || event.clientY > bounds.bottom) galleryDialog.close();
 });
 
 previousPhoto.addEventListener('click', () => showPhoto(activePhotoIndex - 1));
@@ -209,4 +192,25 @@ galleryDialog.addEventListener('keydown', event => {
 
 galleryDialog.addEventListener('close', () => {
   activeProject = null;
+});
+
+// The form provider redirects here after a successful submission.
+const thanks = document.querySelector('#thanks');
+function showFormConfirmation() {
+  if (!thanks) return;
+  thanks.hidden = location.hash !== '#thanks';
+  if (!thanks.hidden) {
+    document.querySelector('.contact-form')?.reset();
+    thanks.focus({ preventScroll: true });
+  }
+}
+window.addEventListener('hashchange', showFormConfirmation);
+showFormConfirmation();
+// Close the mobile menu with Escape and return focus to its button.
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && nav?.classList.contains('open')) {
+    nav.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.focus();
+  }
 });

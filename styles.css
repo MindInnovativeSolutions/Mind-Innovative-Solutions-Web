@@ -183,3 +183,14 @@ textarea { resize:vertical; }
   .contact-form { padding:22px; }
   .float-one { left:-10px; }.float-two { right:-10px; }.float-three { left:10px; }
 }
+
+/* Keep anchors visible beneath the sticky header. */
+section[id], #thanks { scroll-margin-top: 100px; }
+.gallery-viewer.single-photo { grid-template-columns: minmax(0, 1fr); }
+.gallery-dialog { padding-top: 56px; }
+.form-success { background: #eaf3fc; color: #173552; padding: 16px; border-radius: 10px; }
+.form-success[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}

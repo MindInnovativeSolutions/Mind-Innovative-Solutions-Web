@@ -18,10 +18,10 @@
       <a class="brand" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" aria-label="Mind Innovative Solutions home">
   <img src="assets/logo-full.svg" alt="Mind Innovative Solutions" />
       </a>
-      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="main-navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav class="main-nav" aria-label="Primary navigation">
+      <nav id="main-navigation" class="main-nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#gallery">Gallery</a>
         <a href="#why-us">Why us</a>
@@ -231,6 +231,7 @@
           <input type="hidden" name="redirect" value="https://mindinnov.com/#thanks" />
           <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
 
+          <p id="thanks" class="form-success" role="status" tabindex="-1" hidden>Thank you! Your project details have been sent. We will follow up with you soon.</p>
           <div class="form-row">
             <label>Full name<input type="text" name="name" autocomplete="name" required /></label>
             <label>Phone<input type="tel" name="phone" autocomplete="tel" required /></label>
