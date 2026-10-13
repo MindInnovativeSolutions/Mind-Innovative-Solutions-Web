@@ -1,7 +1,0 @@
-{
-  "name": "mind-innovative-solutions-web",
-  "private": true,
-  "scripts": {
-    "build": "node scripts/generate-gallery.mjs"
-  }
-}

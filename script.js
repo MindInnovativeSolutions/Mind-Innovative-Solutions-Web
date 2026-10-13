@@ -24,10 +24,36 @@ const dialogImage = document.querySelector('#gallery-dialog-image');
 const dialogTitle = document.querySelector('#gallery-dialog-title');
 const dialogDescription = document.querySelector('#gallery-dialog-description');
 
-const previousPhoto = document.querySelector('#gallery-prev');
-const nextPhoto = document.querySelector('#gallery-next');
-const galleryCount = document.querySelector('#gallery-count');
-const galleryThumbnails = document.querySelector('#gallery-thumbnails');
+const viewer = document.createElement('div');
+viewer.className = 'gallery-viewer';
+
+const previousPhoto = document.createElement('button');
+previousPhoto.type = 'button';
+previousPhoto.id = 'gallery-prev';
+previousPhoto.className = 'gallery-arrow';
+previousPhoto.setAttribute('aria-label', 'Previous photo');
+previousPhoto.textContent = '‹';
+
+const nextPhoto = document.createElement('button');
+nextPhoto.type = 'button';
+nextPhoto.id = 'gallery-next';
+nextPhoto.className = 'gallery-arrow';
+nextPhoto.setAttribute('aria-label', 'Next photo');
+nextPhoto.textContent = '›';
+
+dialogImage.replaceWith(viewer);
+viewer.append(previousPhoto, dialogImage, nextPhoto);
+
+const galleryCount = document.createElement('p');
+galleryCount.id = 'gallery-count';
+galleryCount.className = 'gallery-count';
+galleryCount.setAttribute('aria-live', 'polite');
+
+const galleryThumbnails = document.createElement('div');
+galleryThumbnails.id = 'gallery-thumbnails';
+galleryThumbnails.className = 'gallery-thumbnails';
+galleryThumbnails.setAttribute('aria-label', 'Project photos');
+dialogDescription.parentElement.after(galleryCount, galleryThumbnails);
 
 const categories = ['All', ...new Set(projects.map(project => project.category).filter(Boolean))];
 let activeProject = null;
@@ -139,7 +165,7 @@ function renderGallery(category = 'All') {
 }
 
 if (projects.length) {
-  galleryFilters.hidden = categories.length < 2;
+  galleryFilters.hidden = categories.length < 3;
 
   categories.forEach(category => {
     const button = document.createElement('button');
