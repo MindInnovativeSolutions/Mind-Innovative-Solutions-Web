@@ -1,24 +1,46 @@
 # Mind Innovative Solutions website
 
-A responsive one-page static website using the blue, black, and white colors from the supplied logos.
+## Automatic category gallery
 
-## Files
-- `index.html` — page structure and content
-- `styles.css` — responsive design system
-- `script.js` — mobile navigation and dynamic copyright year
-- `assets/` — supplied logo files
-- `gallery/projects.js` — completed project entries
-- `gallery/photos/` — project photos
+Put images inside folders directly under `gallery/`:
 
-## Add project photos
-This is a static site: its public Gallery cannot accept browser uploads. To publish photos, use GitHub's **Add file → Upload files** in `gallery/photos/` and commit them. Prefer compressed `.webp` or `.jpg` images (roughly 1600 px wide or less), and remove customer names, addresses, faces, and sensitive screens unless you have permission to publish them.
+- `gallery/Surveillance System/`
+- `gallery/Audio-Video/` (displayed as Audio/Video)
+- `gallery/Racks/`
+- `gallery/TV Mounting/`
 
-Then edit `gallery/projects.js` on GitHub. Replace `window.galleryProjects = [];` with an array of project entries following the commented example in that file. Each project has a title, category, optional broad location and description, and one or more photos with a file path and meaningful alt text. Commit the edit. The Gallery appears automatically after the deployed site updates. Each project card supports multiple horizontally scrollable photos; clicking a photo enlarges it. Categories automatically become filters when there are at least two categories.
+The folder name is the category name. Each category has a cover card and a photo viewer with next/previous buttons and thumbnails. Upload `.jpg`, `.jpeg`, `.png`, `.webp`, or `.avif` files; uppercase extensions work too. Files are ordered naturally by filename (01.jpg, 02.jpg, etc.). Subfolders contribute photos to their parent category. Empty folders are hidden. Photos directly in `gallery/` are ignored.
 
-## Deploy
-Upload the folder to Vercel, Netlify, GitHub Pages, or any static web host.
+### Add pictures from GitHub
 
-## Before production
-1. Replace the `mailto:` form with Formspree, Web3Forms, HubSpot, your CRM, or a serverless endpoint.
-2. Confirm the final phone number, email, service area, licensing wording, and warranty language.
-3. Add analytics and a privacy policy link if needed.
+Open a category folder, choose **Add file → Upload files**, upload pictures, and commit to `main`. The workflow builds and deploys the updated gallery. Wait for the Actions run to complete; refresh the website afterward (GitHub Pages may cache files briefly).
+
+### Add a new category from GitHub
+
+Use **Add file → Create new file** and enter `gallery/New Category/.gitkeep` as the filename. Commit it, open the new folder, then upload pictures. The category appears automatically after deployment when it contains at least one supported image.
+
+No edits to `gallery/projects.js`, HTML, or JavaScript are needed. `gallery/projects.js` is generated during deployment. Deleting or renaming photos/categories takes effect on the next deployment.
+
+## One-time installation on the existing GitHub Pages site
+
+This update includes all current photos reorganized into category folders, the existing branding/contact form, and the gallery generator.
+
+1. Extract this archive into a local checkout of the existing repository, replacing matching files. Include `.github/workflows/deploy-gallery.yml` (a hidden folder on some systems). Old photos in the top level of `gallery/` can be removed; they are ignored by the generator.
+2. Commit and push the changed files and the new category folders to `main`.
+3. In the GitHub repository, open **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**. Keep the existing custom domain `mindinnov.com`.
+4. Open **Actions → Build gallery and deploy GitHub Pages → Run workflow** on `main` if the first run happened before the Pages setting changed.
+5. Confirm the workflow is successful, then open https://mindinnov.com/#gallery.
+
+The Pages workflow deploys only public website files; it does not publish `.git`, scripts, or workflow files. No GitHub API requests or API keys are used by visitors.
+
+## Vercel alternative
+
+If this same repository is deployed on Vercel, the included `vercel.json` runs `npm run build` before publishing. Preserve any existing project domain settings. GitHub Pages serves the current mindinnov.com site.
+
+## Local use
+
+With Node.js 22 installed, run `npm run build` (no dependencies required), then serve this directory using a static HTTP server. The generated manifest is included for static preview; regenerate after changing pictures.
+
+## Current photos
+
+Existing rack/equipment photos were placed in Racks, church audio photos/screenshots in Audio-Video, and television photos in TV Mounting. Surveillance System is ready for new photos and remains hidden while empty. All 31 original image files are preserved.
