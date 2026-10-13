@@ -17,8 +17,3 @@ Then edit `gallery/projects.js` on GitHub. Replace `window.galleryProjects = [];
 
 ## Deploy
 Upload the folder to Vercel, Netlify, GitHub Pages, or any static web host.
-
-## Before production
-1. Replace the `mailto:` form with Formspree, Web3Forms, HubSpot, your CRM, or a serverless endpoint.
-2. Confirm the final phone number, email, service area, licensing wording, and warranty language.
-3. Add analytics and a privacy policy link if needed.
